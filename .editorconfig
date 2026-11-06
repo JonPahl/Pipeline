@@ -1,0 +1,178 @@
+﻿# ==========================================
+# .NET / C# EditorConfig
+# Enforces common naming & formatting conventions
+# Optimized for .NET 10 / C# 14
+# ==========================================
+
+root = true
+
+# ------------------------------------------
+# Global Settings (All files)
+# ------------------------------------------
+[*]
+charset = utf-8-bom
+end_of_line = crlf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# ------------------------------------------
+# C# Files Formatting & Code Style
+# ------------------------------------------
+[*.cs]
+# Braces & Spacing
+csharp_new_line_before_open_brace = all
+csharp_space_after_cast = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_before_open_square_brackets = false
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+
+# Modern C# Code Style (C# 10/11/12+)
+csharp_prefer_braces = when_multiline:suggestion
+csharp_prefer_static_local_function = true:suggestion
+csharp_style_inlined_variable_declaration = true:suggestion
+csharp_style_namespace_declarations = file_scoped:suggestion
+csharp_style_throw_expression = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_using_directive_placement = outside_namespace:suggestion
+dotnet_style_null_propagation = true:suggestion
+
+# Disallow multiple blank lines
+dotnet_style_allow_multiple_blank_lines_experimental = false
+
+# Set severity (suggestion, warning, or error)
+dotnet_diagnostic.IDE2000.severity = warning
+# type names shouldn't read as sentences
+dotnet_diagnostic.CS0001.severity = warning
+
+# Naming: public/protected members use PascalCase
+dotnet_naming_rule.public_members_pascal_style.severity        = error
+dotnet_naming_rule.public_members_pascal_style.symbols          = public_members
+dotnet_naming_rule.public_members_pascal_style.style            = pascal_style
+
+dotnet_naming_symbols.public_members.applicable_modifiers       = public, protected
+dotnet_naming_symbols.public_members.applicable_kinds           = property, method, field, local_function
+
+dotnet_naming_style.pascal_style.capitalization                 = pascal_case
+
+# ==========================================
+# 1. Define Naming Styles
+# ==========================================
+
+# PascalCase style
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+
+# camelCase style
+dotnet_naming_style.camel_case_style.capitalization = camel_case
+
+# _camelCase style (for private fields)
+dotnet_naming_style.private_field_style.capitalization = camel_case
+dotnet_naming_style.private_field_style.required_prefix = _
+
+# IInterface style (PascalCase with 'I' prefix)
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
+
+# ==========================================
+# 2. Define Symbol Groups
+# ==========================================
+
+# Target classes, structs, enums, interfaces, delegates
+dotnet_naming_symbols.types_group.applicable_accessibilities = *
+dotnet_naming_symbols.types_group.applicable_kinds = class, struct, interface, enum, delegate
+
+# Target interfaces specifically
+dotnet_naming_symbols.interface_group.applicable_accessibilities = *
+dotnet_naming_symbols.interface_group.applicable_kinds = interface
+
+# Target public/protected properties, methods, fields
+dotnet_naming_symbols.public_members_group.applicable_accessibilities = public, internal, protected, protected_internal
+dotnet_naming_symbols.public_members_group.applicable_kinds = property, method, field, event
+
+# Target private instance fields
+dotnet_naming_symbols.private_fields_group.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields_group.applicable_kinds = field
+
+# Target parameters and local variables
+dotnet_naming_symbols.locals_group.applicable_kinds = parameter, local
+
+# ==========================================
+# 3. Apply Rules and Enforce Severities
+# ==========================================
+
+# Enforce PascalCase on Types (Error)
+dotnet_naming_rule.types_should_be_pascal_case.severity = error
+dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.types_should_be_pascal_case.symbols = types_group
+
+# Enforce 'I' prefix on Interfaces (Error)
+dotnet_naming_rule.interfaces_should_start_with_i.severity = error
+dotnet_naming_rule.interfaces_should_start_with_i.style = interface_style
+dotnet_naming_rule.interfaces_should_start_with_i.symbols = interface_group
+
+# Enforce PascalCase on Public Members (Warning)
+dotnet_naming_rule.public_members_should_be_pascal_case.severity = warning
+dotnet_naming_rule.public_members_should_be_pascal_case.style = pascal_case_style
+dotnet_naming_rule.public_members_should_be_pascal_case.symbols = public_members_group
+
+# Enforce _camelCase on Private Fields (Warning)
+dotnet_naming_rule.private_fields_should_start_with_underscore.severity = warning
+dotnet_naming_rule.private_fields_should_start_with_underscore.style = private_field_style
+dotnet_naming_rule.private_fields_should_start_with_underscore.symbols = private_fields_group
+
+# Enforce camelCase on Locals and Parameters (Suggestion)
+dotnet_naming_rule.locals_should_be_camel_case.severity = suggestion
+dotnet_naming_rule.locals_should_be_camel_case.style = camel_case_style
+dotnet_naming_rule.locals_should_be_camel_case.symbols = locals_group
+
+# ------------------------------------------
+# Project & Config Files
+# ------------------------------------------
+
+# 4. Set the diagnostic severity for IDE1006 (Naming rule violation)
+dotnet_diagnostic.DOC0001.severity = error
+dotnet_diagnostic.IDE1006.severity = warning
+# RCS1110: Declare type in separate file
+dotnet_diagnostic.CA1034.severity = none
+dotnet_diagnostic.CA1515.severity = none
+dotnet_diagnostic.CA2225.severity = error
+dotnet_diagnostic.RCS1110.severity = warning
+
+# Enable CA2007 and set the severity (suggestion, warning, or error)
+dotnet_diagnostic.CA2007.severity = error
+
+# Optional: Customize the behavior of CA2007
+#dotnet_code_quality.CA2007.allow_receive_in_reply_to_reply_to = true
+
+# Enforce one outer type per file (SA1402)
+dotnet_diagnostic.SA1402.severity = error
+
+## Optional Companion Rule - SA1649: File name should match first type name
+dotnet_diagnostic.SA1649.severity = error
+
+# Elevate duplicate DI registration analyzer warning to an error
+dotnet_diagnostic.DI0001.severity = error
+dotnet_diagnostic.DI003.severity = error
+dotnet_diagnostic.DI013.severity = error
+
+# SA1649: File name should match first type name
+dotnet_diagnostic.SA1649.severity = error
+
+[{*.csproj,*.props,*.targets}]
+indent_size = 2
+
+[*.slnx]
+indent_size = 2
+
+[*Tests.cs]
+csharp_style_expression_bodied_methods = true:silent
+
+[*.json]
+indent_size = 2
+indent_style = space
+
+[*.md]
+trim_trailing_whitespace = false

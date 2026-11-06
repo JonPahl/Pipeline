@@ -56,3 +56,5 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 /Pipeline/.localpilot
+/Pipeline/.vs/Pipeline.slnx
+/.vs/Pipeline.slnx/FileContentIndex

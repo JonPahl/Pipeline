@@ -1,0 +1,42 @@
+﻿using System.Globalization;
+
+using Spectre.Console;
+using Spectre.Console.Rendering;
+
+namespace Pipeline.ConsoleWriter;
+
+/// <summary>
+/// output writer to wrap specture console output.
+/// </summary>
+public class ConsoleOutputWriter : IOutputWriter
+{
+
+    private readonly CultureInfo _provider = CultureInfo.InvariantCulture;
+
+    /// <inheritdoc/>
+    public void Markup(string text, Style? style = null) => AnsiConsole.Markup(provider: _provider, text, style.EnsureValidStyle());
+
+    /// <inheritdoc/>
+    public void MarkupLine(string text, Style? style = null) => AnsiConsole.MarkupLine(provider: _provider, text, style.EnsureValidStyle());
+
+    /// <inheritdoc/>
+    public void Write(string text, Style? style = null) => AnsiConsole.Write(provider: _provider, text, style.EnsureValidStyle());
+
+    /// <summary>Writes a renderable element (table, panel, rule) to the console.</summary>
+    /// <example><![CDATA[writer.Write(new Panel("Hello"));]]></example>
+    public void Write(IRenderable element) => AnsiConsole.Write(element);
+
+    /// <summary>Writes a formatted exception to the console for diagnostic purposes.</summary>
+    /// <example><![CDATA[writer.WriteException(ex);]]></example>
+    public void WriteException(Exception ex)
+        => AnsiConsole.WriteException(ex);
+
+    /// <summary>Writes a blank line to the console.</summary>
+    /// <example><![CDATA[writer.WriteLine();]]></example>
+    public void WriteLine() => AnsiConsole.WriteLine();
+
+    public void WriteLine(string text, Style? style = null) => AnsiConsole.WriteLine(provider: _provider, text, style.EnsureValidStyle());
+
+    /// <inheritdoc/>
+    public void WriteRule() => AnsiConsole.Write(new Rule());
+}

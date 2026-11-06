@@ -1,0 +1,49 @@
+## WORKSPACE EXECUTIVE SUMMARY (YAML)
+# Generated: 2026-11-05T20:45:28.0525415-06:00
+# Root: C:\Users\jp325\source\Pipeline
+Architecture:
+  Type: Backend (C#/.NET)
+  Scale: 19 relevant source files
+  Components: 0
+  Controllers: 0
+  Models: 0
+  Services: 0
+---
+- File: Pipeline\Pipeline.csproj
+  Preview: "<Project Sdk='Microsoft.NET.Sdk'>  <PropertyGroup>   <TargetFramework>net10.0</TargetFramework>   <ImplicitUsings>enable</ImplicitUsings>   <Nullable>..."
+- File: Pipeline.slnx
+  Preview: "<Solution>  <Folder Name='/Solution Items/'>   <File Path='.editorconfig' />  </Folder>  <Project Path='Pipeline/Pipeline.csproj' /> </Solution> "
+- File: Pipeline\BasePipeline.cs
+  Preview: "namespace Pipeline; /// <summary>Abstract base class providing a thread-safe, ordered pipeline of typed stages.</summary> /// <typeparam name='T'>The ..."
+- File: Pipeline\GlobalUsings.cs
+  Preview: "global using System.Diagnostics; global using Microsoft.Extensions.Logging; global using System.Text; global using Polly.Retry; global using Polly; gl..."
+- File: Pipeline\IPipeline.cs
+  Preview: "namespace Pipeline; /// <summary>Orchestrates sequential execution of pipeline stages with retry policies.</summary> /// <example><![CDATA[await runne..."
+- File: Pipeline\IPipelineStage.cs
+  Preview: "namespace Pipeline; /// <summary>Defines a single executable stage within the embedding pipeline.</summary> /// <typeparam name='TContext'>The context..."
+- File: Pipeline\PipelineRunner.cs
+  Preview: "namespace Pipeline; /// <summary>Orchestrates sequential execution of pipeline stages with retry and progress tracking.</summary> /// <param name='log..."
+- File: Pipeline\ConsoleWriter\ConsoleOutputWriter.cs
+  Preview: "using System.Globalization; using Spectre.Console; using Spectre.Console.Rendering; namespace Pipeline.ConsoleWriter; /// <summary> /// output writer ..."
+- File: Pipeline\ConsoleWriter\StylesExtensions.cs
+  Preview: "using Spectre.Console; namespace Pipeline.ConsoleWriter; /// <summary>Extends Spectre.Console style handling with null-safe fallback.</summary> /// <r..."
+- File: Pipeline\Exceptions\PipelineStageException.cs
+  Preview: "namespace Pipeline.Exceptions; /// <summary> /// Represents a non-recoverable error encountered during a pipeline stage execution. /// </summary> /// ..."
+- File: Pipeline\Extensions\ServiceCollectionExtensions.cs
+  Preview: "using Microsoft.Extensions.DependencyInjection; namespace Pipeline.Extensions; public static class ServiceCollectionExtensions {   /// <summary>   ///..."
+- File: Pipeline\Middleware\ExceptionHandlingMiddleware.cs
+  Preview: "namespace Pipeline.Middleware; public sealed class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) {   public async Task Invo..."
+- File: Pipeline\Middleware\IOutputWriter.cs
+  Preview: "using Spectre.Console; using Spectre.Console.Rendering; namespace Pipeline.Middleware; /// <summary>Abstraction for writing styled element elements to..."
+- File: Pipeline\Middleware\IPipelineMiddleware.cs
+  Preview: "namespace Pipeline.Middleware; public interface IPipelineMiddleware<in TContext> where TContext : class {   Task Invoke(     StageExecutionContext<TCo..."
+- File: Pipeline\Middleware\ProgressMiddleware.cs
+  Preview: "namespace Pipeline.Middleware; public sealed class ProgressMiddleware(IOutputWriter writer) {   public async Task Invoke<TContext>(     StageExecution..."
+- File: Pipeline\Middleware\StageTimingMiddleware.cs
+  Preview: "namespace Pipeline.Middleware; /// <summary> /// Middleware that measures wall-clock duration of a stage and populates <see cref='StageMetric'/>. /// ..."
+- File: Pipeline\Staging\StageEntry.cs
+  Preview: "namespace Pipeline.Staging; /// <summary>Holds a stage reference along with its retry configuration for pipeline execution.</summary> /// <example><![..."
+- File: Pipeline\Staging\StageExecutionContext.cs
+  Preview: "namespace Pipeline.Staging; public sealed record StageExecutionContext<TContext>(   IPipelineStage<TContext> Stage,   TContext PipelineContext,   int ..."
+- File: Pipeline\Staging\StageMetric.cs
+  Preview: "namespace Pipeline.Staging; /// <summary>Immutable record capturing per-stage execution metrics for reporting.</summary> /// <example><![CDATA[var m =..."
